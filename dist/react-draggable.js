@@ -232,7 +232,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      bottom: innerHeight(parent) - outerHeight(node) - node.offsetTop
 	    };
 	  }
-	
+
+      // gm281: I'm not dealing with margins/padding
+	  if (bounds === 'parent-outside') {
+	    var nodeStyle = window.getComputedStyle(node);
+	    var parentStyle = window.getComputedStyle(parent);
+	    bounds = {
+	      left: -outerWidth(node) + outerWidth(parent),
+	      top: -innerHeight(node) + outerHeight(parent),
+	      right: 0,
+	      bottom: 0
+	    };
+	  }
+		
 	  // Keep x and y below right and bottom limits...
 	  if (isNum(bounds.right)) clientX = Math.min(clientX, bounds.right);
 	  if (isNum(bounds.bottom)) clientY = Math.min(clientY, bounds.bottom);
